@@ -1,6 +1,8 @@
-Apache Spark Hazelcast Connector
+## Apache Spark Hazelcast Connector
 
-1- Write Hazelcast Entries / Items to Spark as RDD.
+Spark-Hazelcast Connector API supports the following features :
+
+### 1- Write Hazelcast Entries / Items to Spark as RDD.
 
 * Distributed Map :
 ```
@@ -80,7 +82,7 @@ val hazelcastItemRDD = new HazelcastItemRDD[Int, String](sc, properties)
 hazelcastItemRDD.print()
 ```
 
-2- Write Spark RDDs to Hazelcast Distributed Object :
+### 2- Write Spark RDDs to Hazelcast Distributed Object :
 
 * Distributed Map / MultiMap / ReplicatedMap :
 ```
@@ -125,7 +127,7 @@ import com.otv.spark.hazelcast.connector.rdd.implicits._
 intRDD.writeMessageToHazelcast(properties)
 ```
 
-3- Write Hazelcast Entries / Items to Spark as DStream.
+### 3- Write Hazelcast Entries / Items to Spark as DStream.
 
 * Distributed Map / MultiMap / ReplicatedMap:
 ```
@@ -176,7 +178,7 @@ ssc.start()
 ```
 
 
-4- Write Spark DStreams to Hazelcast Distributed Object :
+### 4- Write Spark DStreams to Hazelcast Distributed Object :
 
 * Distributed Map / MultiMap / ReplicatedMap :
 ```
