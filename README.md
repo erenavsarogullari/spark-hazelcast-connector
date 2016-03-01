@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/erenavsarogullari/spark-hazelcast-connector.svg?branch=master)](https://github.com/erenavsarogullari/spark-hazelcast-connector)
+[![Scala version](https://img.shields.io/badge/scala-2.11-orange.svg)](http://www.scala-lang.org/api/2.11.7/)
+
 ## Apache Spark Hazelcast Connector
 
 Spark-Hazelcast Connector API supports the following features :
