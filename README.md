@@ -7,7 +7,7 @@ Spark-Hazelcast Connector API supports the following features :
 
 ### 1- Write Hazelcast Entries / Items to Spark as RDD.
 
-* Distributed Map :
+##### * Distributed Map :
 ```
 lazy val sc = new SparkContext(new SparkConf().setAppName("spark-hazelcast").setMaster("local[2]"))
 
@@ -20,7 +20,7 @@ val hazelcastEntryRDD = new HazelcastEntryRDD[Int, String](sc, properties)
 hazelcastEntryRDD.print()
 ```
 
-* MultiMap :
+##### * MultiMap :
 ```
 lazy val sc = ...
 
@@ -33,7 +33,7 @@ val hazelcastEntryRDD = new HazelcastEntryRDD[Int, String](sc, properties)
 hazelcastEntryRDD.print()
 ```
 
-* ReplicatedMap :
+##### * ReplicatedMap :
 ```
 lazy val sc = ...
 
@@ -46,7 +46,7 @@ val hazelcastEntryRDD = new HazelcastEntryRDD[Int, String](sc, properties)
 hazelcastEntryRDD.print()
 ```
 
-* Distributed List :
+##### * Distributed List :
 ```
 lazy val sc = ...
 
@@ -59,7 +59,7 @@ val hazelcastItemRDD = new HazelcastItemRDD[Int, String](sc, properties)
 hazelcastItemRDD.print()
 ```
 
-* Distributed Set :
+##### * Distributed Set :
 ```
 lazy val sc = ...
 
@@ -72,7 +72,7 @@ val hazelcastItemRDD = new HazelcastItemRDD[Int, String](sc, properties)
 hazelcastItemRDD.print()
 ```
 
-* Distributed Queue :
+##### * Distributed Queue :
 ```
 lazy val sc = ...
 
@@ -87,7 +87,7 @@ hazelcastItemRDD.print()
 
 ### 2- Write Spark RDDs to Hazelcast Distributed Object :
 
-* Distributed Map / MultiMap / ReplicatedMap :
+##### * Distributed Map / MultiMap / ReplicatedMap :
 ```
 lazy val sc = ...
 
@@ -103,7 +103,7 @@ import com.otv.spark.hazelcast.connector.rdd.implicits._
 tupleRDD.writeEntryToHazelcast(properties)
 ```
 
-* Distributed List / Set / Queue :
+##### * Distributed List / Set / Queue :
 ```
 val properties = ...
 
@@ -114,7 +114,7 @@ intRDD.writeItemToHazelcast(properties)
 ```
 
 
-* Topic / Reliable Topic :
+##### * Topic / Reliable Topic :
 ```
 lazy val sc = ...
 
@@ -132,7 +132,7 @@ intRDD.writeMessageToHazelcast(properties)
 
 ### 3- Write Hazelcast Entries / Items to Spark as DStream.
 
-* Distributed Map / MultiMap / ReplicatedMap:
+##### * Distributed Map / MultiMap / ReplicatedMap:
 ```
 val properties = new Properties()
 properties.put(HazelcastXMLConfigFileName, "hazelcast.xml")
@@ -151,7 +151,7 @@ hzMapStream.print(10)
 ssc.start()
 ```
 
-* Distributed List / Set / Queue :
+##### * Distributed List / Set / Queue :
 ```
 val properties = ...
 
@@ -166,7 +166,7 @@ hzListStream.print(10)
 ssc.start()
 ```
 
-* Topic / Reliable Topic :
+##### * Topic / Reliable Topic :
 ```
 val properties = ...
 
@@ -183,7 +183,7 @@ ssc.start()
 
 ### 4- Write Spark DStreams to Hazelcast Distributed Object :
 
-* Distributed Map / MultiMap / ReplicatedMap :
+##### * Distributed Map / MultiMap / ReplicatedMap :
 ```
 lazy val sc = new SparkContext(new SparkConf().setAppName("spark-hazelcast").setMaster("local[2]"))
 lazy val ssc = new StreamingContext(sc, Seconds(1))
@@ -203,7 +203,7 @@ ssc.start()
 
 ```
 
-* Distributed List / Set / Queue :
+##### * Distributed List / Set / Queue :
 ```
 lazy val ssc = ...
 
@@ -218,7 +218,7 @@ queueStream.writeItemToHazelcast(properties)
 ssc.start()
 ```
 
-* Topic / Reliable Topic :
+##### * Topic / Reliable Topic :
 ```
 lazy val ssc = ...
 
