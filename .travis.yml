@@ -4,8 +4,8 @@ jdk:
   - oraclejdk7
 
 scala:
-   - 2.10.4
-   - 2.11.2
+   - 2.10.6
+   - 2.11.7
 
 script:
   - ./gradlew check
