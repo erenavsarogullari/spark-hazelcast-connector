@@ -6,7 +6,33 @@
 
 Spark-Hazelcast Connector API supports the following features :
 
-### 1- Write Hazelcast Entries / Items to Spark as RDD.
+1- Write Hazelcast Entries / Items to Spark as RDD.
+2- Write Spark RDDs to Hazelcast as Distributed Object.
+3- Write Hazelcast Entries / Items / Messages to Spark as DStream.
+4- Write Spark DStreams to Hazelcast as Distributed Object.
+
+Sample Hazelcast XML File as follows :
+```
+<hazelcast xsi:schemaLocation="http://www.hazelcast.com/schema/config hazelcast-config-3.6.xsd"
+           xmlns="http://www.hazelcast.com/schema/config"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <group>
+        <name>dev</name>
+        <password>dev-pass</password>
+    </group>
+    <instance-name>test_hazelcast_instance</instance-name>
+    <network>
+        <join>
+            <multicast enabled="false"></multicast>
+            <tcp-ip enabled="true">
+                <member>127.0.0.1:5701</member>
+            </tcp-ip>
+        </join>
+    </network>
+</hazelcast>
+```
+
+### 1- Write Hazelcast Entries / Items to Spark as RDD :
 
 ##### * Distributed Map :
 ```
@@ -86,7 +112,7 @@ val hazelcastItemRDD = new HazelcastItemRDD[Int, String](sc, properties)
 hazelcastItemRDD.print()
 ```
 
-### 2- Write Spark RDDs to Hazelcast Distributed Object :
+### 2- Write Spark RDDs to Hazelcast as Distributed Object :
 
 ##### * Distributed Map / MultiMap / ReplicatedMap :
 ```
@@ -114,7 +140,6 @@ import com.otv.spark.hazelcast.connector.rdd.implicits._
 intRDD.writeItemToHazelcast(properties)
 ```
 
-
 ##### * Topic / Reliable Topic :
 ```
 lazy val sc = ...
@@ -131,7 +156,7 @@ import com.otv.spark.hazelcast.connector.rdd.implicits._
 intRDD.writeMessageToHazelcast(properties)
 ```
 
-### 3- Write Hazelcast Entries / Items to Spark as DStream.
+### 3- Write Hazelcast Entries / Items / Messages to Spark as DStream :
 
 ##### * Distributed Map / MultiMap / ReplicatedMap:
 ```
@@ -182,7 +207,7 @@ ssc.start()
 ```
 
 
-### 4- Write Spark DStreams to Hazelcast Distributed Object :
+### 4- Write Spark DStreams to Hazelcast as Distributed Object :
 
 ##### * Distributed Map / MultiMap / ReplicatedMap :
 ```

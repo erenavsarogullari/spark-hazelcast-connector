@@ -49,46 +49,16 @@ object SparkHazelcastService {
 
   private def getDistributedObject(hazelcastInstance: HazelcastInstance, hazelcastDistributedObjectType: DistributedObjectType, hazelcastDistributedObjectName: String): DistributedObject = {
     hazelcastDistributedObjectType match {
-      case DistributedObjectType.IMap => {
-        hazelcastInstance.getMap(hazelcastDistributedObjectName)
-      }
-      case DistributedObjectType.MultiMap => {
-        hazelcastInstance.getMultiMap(hazelcastDistributedObjectName)
-      }
-      case DistributedObjectType.ReplicatedMap => {
-        hazelcastInstance.getReplicatedMap(hazelcastDistributedObjectName)
-      }
-      case DistributedObjectType.IList => {
-        hazelcastInstance.getList(hazelcastDistributedObjectName)
-      }
-      case DistributedObjectType.ISet => {
-        hazelcastInstance.getSet(hazelcastDistributedObjectName)
-      }
-      case DistributedObjectType.IQueue => {
-        hazelcastInstance.getQueue(hazelcastDistributedObjectName)
-      }
-      case DistributedObjectType.ITopic => {
-        hazelcastInstance.getTopic(hazelcastDistributedObjectName)
-      }
-      case DistributedObjectType.ReliableTopic => {
-        hazelcastInstance.getReliableTopic(hazelcastDistributedObjectName)
-      }
+      case DistributedObjectType.IMap => hazelcastInstance.getMap(hazelcastDistributedObjectName)
+      case DistributedObjectType.MultiMap => hazelcastInstance.getMultiMap(hazelcastDistributedObjectName)
+      case DistributedObjectType.ReplicatedMap => hazelcastInstance.getReplicatedMap(hazelcastDistributedObjectName)
+      case DistributedObjectType.IList => hazelcastInstance.getList(hazelcastDistributedObjectName)
+      case DistributedObjectType.ISet => hazelcastInstance.getSet(hazelcastDistributedObjectName)
+      case DistributedObjectType.IQueue => hazelcastInstance.getQueue(hazelcastDistributedObjectName)
+      case DistributedObjectType.ITopic => hazelcastInstance.getTopic(hazelcastDistributedObjectName)
+      case DistributedObjectType.ReliableTopic => hazelcastInstance.getReliableTopic(hazelcastDistributedObjectName)
       case distObj: Any => throw new IllegalStateException(s"Expected Distributed Object Types : [IMap, MultiMap, ReplicatedMap, IList, ISet and IQueue, ITopic and ReliableTopic] but $distObj found!")
     }
   }
-
-  //  private def getHazelcastDistributedEventTypes(hazelcastDistributedEventTypes: String): Set[DistributedEventType] = {
-  //    if(StringUtils.isNotBlank(hazelcastDistributedEventTypes)) {
-  //      val distributedEventTypeSet = Set[DistributedEventType]()
-  //      val types = StringUtils.split(hazelcastDistributedEventTypes, ",")
-  //      types.foreach(t => {
-  //        val tenum = DistributedEventType.withName(t)
-  //        distributedEventTypeSet += tenum
-  //      })
-  //      distributedEventTypeSet
-  //    } else {
-  //      Set()
-  //    }
-  //  }
 
 }
