@@ -7,10 +7,10 @@
 
 Spark-Hazelcast Connector API supports the following features :
 
-1- Write Hazelcast Entries / Items to Spark as RDD.
-2- Write Spark RDDs to Hazelcast as Distributed Object.
-3- Write Hazelcast Entries / Items / Messages to Spark as DStream.
-4- Write Spark DStreams to Hazelcast as Distributed Object.
+1. Write Hazelcast Entries / Items to Spark as RDD.
+2. Write Spark RDDs to Hazelcast as Distributed Object.
+3. Write Hazelcast Entries / Items / Messages to Spark as DStream.
+4. Write Spark DStreams to Hazelcast as Distributed Object.
 
 Sample Hazelcast XML File as follows :
 ```
@@ -33,9 +33,9 @@ Sample Hazelcast XML File as follows :
 </hazelcast>
 ```
 
-### 1- Write Hazelcast Entries / Items to Spark as RDD :
+### 1. Write Hazelcast Entries / Items to Spark as RDD :
 
-##### * Distributed Map :
+##### 1.1 Distributed Map :
 ```
 lazy val sc = new SparkContext(new SparkConf().setAppName("spark-hazelcast").setMaster("local[2]"))
 
@@ -48,7 +48,7 @@ val hazelcastEntryRDD = new HazelcastEntryRDD[Int, String](sc, properties)
 hazelcastEntryRDD.print()
 ```
 
-##### * MultiMap :
+##### 1.2 MultiMap :
 ```
 lazy val sc = ...
 
@@ -61,7 +61,7 @@ val hazelcastEntryRDD = new HazelcastEntryRDD[Int, String](sc, properties)
 hazelcastEntryRDD.print()
 ```
 
-##### * ReplicatedMap :
+##### 1.3 ReplicatedMap :
 ```
 lazy val sc = ...
 
@@ -74,7 +74,7 @@ val hazelcastEntryRDD = new HazelcastEntryRDD[Int, String](sc, properties)
 hazelcastEntryRDD.print()
 ```
 
-##### * Distributed List :
+##### 1.4 Distributed List :
 ```
 lazy val sc = ...
 
@@ -87,7 +87,7 @@ val hazelcastItemRDD = new HazelcastItemRDD[Int, String](sc, properties)
 hazelcastItemRDD.print()
 ```
 
-##### * Distributed Set :
+##### 1.5 Distributed Set :
 ```
 lazy val sc = ...
 
@@ -100,7 +100,7 @@ val hazelcastItemRDD = new HazelcastItemRDD[Int, String](sc, properties)
 hazelcastItemRDD.print()
 ```
 
-##### * Distributed Queue :
+##### 1.6 Distributed Queue :
 ```
 lazy val sc = ...
 
@@ -113,9 +113,9 @@ val hazelcastItemRDD = new HazelcastItemRDD[Int, String](sc, properties)
 hazelcastItemRDD.print()
 ```
 
-### 2- Write Spark RDDs to Hazelcast as Distributed Object :
+### 2. Write Spark RDDs to Hazelcast as Distributed Object :
 
-##### * Distributed Map / MultiMap / ReplicatedMap :
+##### 2.1 Distributed Map / MultiMap / ReplicatedMap :
 ```
 lazy val sc = ...
 
@@ -131,7 +131,7 @@ import com.otv.spark.hazelcast.connector.rdd.implicits._
 tupleRDD.writeEntryToHazelcast(properties)
 ```
 
-##### * Distributed List / Set / Queue :
+##### 2.2 Distributed List / Set / Queue :
 ```
 val properties = ...
 
@@ -141,7 +141,7 @@ import com.otv.spark.hazelcast.connector.rdd.implicits._
 intRDD.writeItemToHazelcast(properties)
 ```
 
-##### * Topic / Reliable Topic :
+##### 2.3 Topic / Reliable Topic :
 ```
 lazy val sc = ...
 
@@ -157,9 +157,9 @@ import com.otv.spark.hazelcast.connector.rdd.implicits._
 intRDD.writeMessageToHazelcast(properties)
 ```
 
-### 3- Write Hazelcast Entries / Items / Messages to Spark as DStream :
+### 3. Write Hazelcast Entries / Items / Messages to Spark as DStream :
 
-##### * Distributed Map / MultiMap / ReplicatedMap:
+##### 3.1 Distributed Map / MultiMap / ReplicatedMap:
 ```
 val properties = new Properties()
 properties.put(HazelcastXMLConfigFileName, "hazelcast.xml")
@@ -178,7 +178,7 @@ hzMapStream.print(10)
 ssc.start()
 ```
 
-##### * Distributed List / Set / Queue :
+##### 3.2 Distributed List / Set / Queue :
 ```
 val properties = ...
 
@@ -193,7 +193,7 @@ hzListStream.print(10)
 ssc.start()
 ```
 
-##### * Topic / Reliable Topic :
+##### 3.3 Topic / Reliable Topic :
 ```
 val properties = ...
 
@@ -208,9 +208,9 @@ ssc.start()
 ```
 
 
-### 4- Write Spark DStreams to Hazelcast as Distributed Object :
+### 4. Write Spark DStreams to Hazelcast as Distributed Object :
 
-##### * Distributed Map / MultiMap / ReplicatedMap :
+##### 4.1 Distributed Map / MultiMap / ReplicatedMap :
 ```
 lazy val sc = new SparkContext(new SparkConf().setAppName("spark-hazelcast").setMaster("local[2]"))
 lazy val ssc = new StreamingContext(sc, Seconds(1))
@@ -230,7 +230,7 @@ ssc.start()
 
 ```
 
-##### * Distributed List / Set / Queue :
+##### 4.2 Distributed List / Set / Queue :
 ```
 lazy val ssc = ...
 
@@ -245,7 +245,7 @@ queueStream.writeItemToHazelcast(properties)
 ssc.start()
 ```
 
-##### * Topic / Reliable Topic :
+##### 4.3 Topic / Reliable Topic :
 ```
 lazy val ssc = ...
 
