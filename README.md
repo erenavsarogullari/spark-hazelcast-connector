@@ -7,10 +7,10 @@
 
 Spark-Hazelcast Connector API supports the following features :
 
-1. Write Hazelcast Entries / Items to Spark as RDD.
-2. Write Spark RDDs to Hazelcast as Distributed Object.
-3. Write Hazelcast Entries / Items / Messages to Spark as DStream.
-4. Write Spark DStreams to Hazelcast as Distributed Object.
+1. Exposes Hazelcast Distributed Objects(DistributedMap, MultiMap, ReplicatedMap, DistributedList, DistributedSet and DistributedQueue) as Spark RDDs. 
+2. Writes RDDs back to Hazelcast by implicit writeEntryToHazelcast / writeItemToHazelcast / writeMessageToHazelcast call.
+3. Writes Hazelcast Distributed Object Events to Spark as DStream and creates HazelcastEntryStream, HazelcastItemStream and HazelcastMessageStream.
+4. Write Spark DStreams back to Hazelcast by implicit writeEntryToHazelcast / writeItemToHazelcast / writeMessageToHazelcast call.
 
 Sample Hazelcast XML File as follows :
 ```
