@@ -1,14 +1,14 @@
 language: scala
 
 jdk:
-  - oraclejdk7
+  - oraclejdk8
 
 scala:
    - 2.10.6
    - 2.11.7
 
 script:
-  - ./gradlew check
+  - ./gradlew reportScoverage
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

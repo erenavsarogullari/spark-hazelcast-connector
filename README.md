@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/erenavsarogullari/spark-hazelcast-connector.svg?branch=master)](https://github.com/erenavsarogullari/spark-hazelcast-connector)
 [![Scala version](https://img.shields.io/badge/scala-2.11-orange.svg)](http://www.scala-lang.org/api/2.11.7/)
 [![codecov.io](https://codecov.io/github/erenavsarogullari/spark-hazelcast-connector/coverage.svg?branch=master)](https://codecov.io/github/erenavsarogullari/spark-hazelcast-connector?branch=master)
+[![License](http://img.shields.io/:license-Apache%202-red.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ## Apache Spark Hazelcast Connector
 
