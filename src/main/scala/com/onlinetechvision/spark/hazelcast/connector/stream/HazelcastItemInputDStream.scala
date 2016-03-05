@@ -21,6 +21,7 @@ import java.util.Properties
 import com.hazelcast.core._
 import com.onlinetechvision.spark.hazelcast.connector.DistributedEventType
 import DistributedEventType._
+import com.onlinetechvision.spark.hazelcast.connector.validator.SparkHazelcastValidator
 import org.apache.spark.storage.StorageLevel
 import org.apache.spark.streaming.StreamingContext
 import org.apache.spark.streaming.dstream.ReceiverInputDStream
@@ -37,11 +38,13 @@ class HazelcastItemReceiver[T](storageLevel: StorageLevel, properties: Propertie
 
   override protected val props: Properties = properties
 
+  SparkHazelcastValidator.validateDistributedEventTypes[T](sparkHazelcastData.getDistributedObject(), distributedEventTypes)
+
   override def onStart() {
     start()
   }
 
-  override def onStop() = {
+  override def onStop() {
     stop()
   }
 
@@ -51,7 +54,7 @@ class HazelcastItemReceiver[T](storageLevel: StorageLevel, properties: Propertie
       case hzList: IList[T] => hzList.addItemListener(hazelcastInputDStreamItemListener, true)
       case hzSet: ISet[T] => hzSet.addItemListener(hazelcastInputDStreamItemListener, true)
       case hzQueue: IQueue[T] => hzQueue.addItemListener(hazelcastInputDStreamItemListener, true)
-      case distObj: Any => throw new IllegalStateException(s"Expected Distributed Object Types : [IList, ISet and IQueue] but $distObj found!")
+      case distObj: Any => throw new IllegalStateException(s"Expected Distributed Object Types : [IList, ISet and IQueue] but ${distObj.getName} found!")
     }
   }
 

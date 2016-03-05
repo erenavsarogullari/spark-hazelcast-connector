@@ -20,6 +20,7 @@ import java.util.Properties
 
 import com.hazelcast.core._
 import com.onlinetechvision.spark.hazelcast.connector.config.SparkHazelcastService
+import com.onlinetechvision.spark.hazelcast.connector.validator.SparkHazelcastValidator._
 import org.apache.spark.rdd.RDD
 
 /**
@@ -60,6 +61,7 @@ package object implicits {
     }
 
     def writeItemToHazelcast(properties: Properties) {
+      validateProperties(properties)
       writeToHazelcast(properties)
     }
 
@@ -77,6 +79,7 @@ package object implicits {
     }
 
     def writeMessageToHazelcast(properties: Properties) {
+      validateProperties(properties)
       writeToHazelcast(properties)
     }
 
@@ -96,6 +99,7 @@ package object implicits {
     }
 
     def writeEntryToHazelcast(properties: Properties) {
+      validateProperties(properties)
       writeToHazelcast(properties)
     }
 

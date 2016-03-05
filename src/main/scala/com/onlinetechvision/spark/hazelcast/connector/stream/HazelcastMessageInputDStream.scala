@@ -39,7 +39,7 @@ class HazelcastMessageReceiver[T](storageLevel: StorageLevel, properties: Proper
     start()
   }
 
-  override def onStop() = {
+  override def onStop() {
     stop()
   }
 
@@ -47,7 +47,7 @@ class HazelcastMessageReceiver[T](storageLevel: StorageLevel, properties: Proper
     val hazelcastInputDStreamMessageListener = new HazelcastInputDStreamMessageListener[T](this)
     distributedObject match {
       case hzTopic: ITopic[T] => hzTopic.addMessageListener(hazelcastInputDStreamMessageListener)
-      case distObj: Any => throw new IllegalStateException(s"Expected Distributed Object Type : [ITopic] but $distObj found!")
+      case distObj: Any => throw new IllegalStateException(s"Expected Distributed Object Type : [ITopic] but ${distObj.getName} found!")
     }
   }
 
@@ -60,7 +60,6 @@ class HazelcastMessageReceiver[T](storageLevel: StorageLevel, properties: Proper
   private class HazelcastInputDStreamMessageListener[T](receiver: HazelcastMessageReceiver[T]) extends MessageListener[T] {
 
     override def onMessage(message: Message[T]) {
-      println(s"geldi.... ${message.getMessageObject}")
       receiver.store((message.getPublishingMember.getAddress.toString, message.getPublishTime.toString, message.getMessageObject))
     }
 

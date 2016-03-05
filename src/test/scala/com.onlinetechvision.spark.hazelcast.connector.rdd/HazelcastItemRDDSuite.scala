@@ -88,7 +88,7 @@ class HazelcastItemRDDSuite extends SparkHazelcastSuite {
       case hzQueue: IQueue[T@unchecked] => {
         assert(hzQueue.addAll(expectedList))
       }
-      case distObj: Any => fail(s"Expected Distributed Object Types : [IList, ISet and IQueue] but $distObj found!")
+      case distObj: Any => fail(s"Expected Distributed Object Types : [IList, ISet and IQueue] but ${distObj.getName} found!")
     }
   }
 

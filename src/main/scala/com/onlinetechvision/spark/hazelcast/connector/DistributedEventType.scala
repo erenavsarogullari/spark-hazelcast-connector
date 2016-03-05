@@ -21,7 +21,5 @@ package com.onlinetechvision.spark.hazelcast.connector
  */
 object DistributedEventType extends Enumeration {
   type DistributedEventType = Value
-  val ADDED, REMOVED, UPDATED,
-      EVICTED, EVICT_ALL, CLEAR_ALL,
-      MERGED, EXPIRED, INVALIDATION = Value
+  val ADDED, REMOVED, UPDATED, EVICTED= Value
 }

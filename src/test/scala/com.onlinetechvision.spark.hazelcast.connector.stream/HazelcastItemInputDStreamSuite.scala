@@ -98,7 +98,7 @@ class HazelcastItemInputDStreamSuite extends SparkHazelcastSuite {
         case hzQueue: IQueue[T] => {
           addItems(hzQueue, expectedList)
         }
-        case distObj: Any => fail(s"Expected Distributed Object Types : [IList, ISet and IQueue] but $distObj found!")
+        case distObj: Any => fail(s"Expected Distributed Object Types : [IList, ISet and IQueue] but ${distObj.getName} found!")
       }
     }
 

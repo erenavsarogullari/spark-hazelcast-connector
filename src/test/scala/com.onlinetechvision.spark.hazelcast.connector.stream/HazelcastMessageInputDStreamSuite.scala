@@ -91,7 +91,7 @@ class HazelcastMessageInputDStreamSuite extends SparkHazelcastSuite {
             Thread.sleep(1000)
           })
         }
-        case distObj: Any => fail(s"Expected Distributed Object Types : [ITopic] but $distObj found!")
+        case distObj: Any => fail(s"Expected Distributed Object Types : [ITopic] but ${distObj.getName} found!")
       }
     }
 

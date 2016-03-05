@@ -88,7 +88,7 @@ class HazelcastEntryRDDSuite extends SparkHazelcastSuite {
       case hzReplicatedMap: ReplicatedMap[K @unchecked, V @unchecked] => {
         expectedTupleList.foreach(tuple => hzReplicatedMap.put(tuple._1, tuple._2))
       }
-      case distObj: Any => fail(s"Expected Distributed Object Types : [IMap, MultiMap and ReplicatedMap] but $distObj found!")
+      case distObj: Any => fail(s"Expected Distributed Object Types : [IMap, MultiMap and ReplicatedMap] but ${distObj.getName} found!")
     }
   }
 

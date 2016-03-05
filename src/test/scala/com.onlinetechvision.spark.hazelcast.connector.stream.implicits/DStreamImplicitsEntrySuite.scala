@@ -99,7 +99,7 @@ class DStreamImplicitsEntrySuite extends SparkHazelcastSuite {
       case replicatedMap: ReplicatedMap[K @unchecked, V @unchecked] => {
         replicatedMap.addEntryListener(new TestEntryListener[K, V](latch, expectedTupleList))
       }
-      case distObj: Any => fail(s"Expected Distributed Object Types : [IMap, MultiMap, ReplicatedMap] but $distObj found!")
+      case distObj: Any => fail(s"Expected Distributed Object Types : [IMap, MultiMap, ReplicatedMap] but ${distObj.getName} found!")
     }
   }
 

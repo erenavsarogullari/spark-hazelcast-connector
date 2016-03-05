@@ -74,7 +74,7 @@ class DStreamImplicitsMessageSuite extends SparkHazelcastSuite {
       case hzTopic: ITopic[T @unchecked] => {
         hzTopic.addMessageListener(listener)
       }
-      case distObj: Any => fail(s"Expected Distributed Object Type : [ITopic] but $distObj found!")
+      case distObj: Any => fail(s"Expected Distributed Object Type : [ITopic] but ${distObj.getName} found!")
     }
   }
 

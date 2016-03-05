@@ -210,7 +210,7 @@ class RDDImplicitsSuite extends SparkHazelcastSuite {
         assert(hzReplicatedMap.size === expectedList.size)
         for (entry <- hzReplicatedMap.entrySet()) assert(expectedList.contains((entry.getKey, entry.getValue)))
       }
-      case distObj: Any => fail(s"Expected Distributed Object Types : [IMap, MultiMap and ReplicatedMap] but $distObj found!")
+      case distObj: Any => fail(s"Expected Distributed Object Types : [IMap, MultiMap and ReplicatedMap] but ${distObj.getName} found!")
     }
   }
 
@@ -230,7 +230,7 @@ class RDDImplicitsSuite extends SparkHazelcastSuite {
         assert(hzQueue.size === expectedList.size)
         for (item <- hzQueue) assert(expectedList.contains(item))
       }
-      case distObj: Any => fail(s"Expected Distributed Object Types : [IList, ISet and IQueue] but $distObj found!")
+      case distObj: Any => fail(s"Expected Distributed Object Types : [IList, ISet and IQueue] but ${distObj.getName} found!")
     }
   }
 
@@ -240,7 +240,7 @@ class RDDImplicitsSuite extends SparkHazelcastSuite {
       case hzTopic: ITopic[T @unchecked] => {
         hzTopic.addMessageListener(listener)
       }
-      case distObj: Any => fail(s"Expected Distributed Object Types : [ITopic and ReliableTopic] but $distObj found!")
+      case distObj: Any => fail(s"Expected Distributed Object Types : [ITopic and ReliableTopic] but ${distObj.getName} found!")
     }
   }
 

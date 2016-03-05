@@ -32,7 +32,7 @@ import scala.reflect.ClassTag
  */
 object SparkHazelcastSuiteUtils {
 
-  val HazelcastXMLFileName = "hazelcast-custom.xml"
+  val HazelcastXMLFileName = "hazelcast_test_config.xml"
 
   def getExpectedTupleList(count: Int) = (1 to count).map(i => (i, s"test_value_$i")).toList
 

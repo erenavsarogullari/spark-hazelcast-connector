@@ -23,6 +23,7 @@ import com.hazelcast.map.listener._
 import com.hazelcast.query.Predicate
 import com.onlinetechvision.spark.hazelcast.connector.DistributedEventType
 import DistributedEventType._
+import com.onlinetechvision.spark.hazelcast.connector.validator.SparkHazelcastValidator
 import org.apache.spark.storage.StorageLevel
 import org.apache.spark.streaming.StreamingContext
 import org.apache.spark.streaming.dstream.ReceiverInputDStream
@@ -39,11 +40,13 @@ class HazelcastEntryReceiver[K, V](storageLevel: StorageLevel, properties: Prope
 
   override protected val props: Properties = properties
 
+  SparkHazelcastValidator.validateDistributedEventTypesOfMap[K, V](sparkHazelcastData.getDistributedObject(), distributedEventTypes)
+
   override def onStart() {
     start()
   }
 
-  override def onStop() = {
+  override def onStop() {
     stop()
   }
 
@@ -82,7 +85,7 @@ class HazelcastEntryReceiver[K, V](storageLevel: StorageLevel, properties: Prope
         }
       }
 
-      case distObj: Any => throw new IllegalStateException(s"Expected Distributed Object Types : [IMap, MultiMap and ReplicatedMap] but $distObj found!")
+      case distObj: Any => throw new IllegalStateException(s"Expected Distributed Object Types : [IMap, MultiMap and ReplicatedMap] but ${distObj.getName} found!")
     }
   }
 

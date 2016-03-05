@@ -115,7 +115,7 @@ class HazelcastEntryInputDStreamSuite extends SparkHazelcastSuite {
             Thread.sleep(1000)
           })
         }
-        case distObj: Any => fail(s"Expected Distributed Object Types : [IMap, MultiMap and ReplicatedMap] but $distObj found!")
+        case distObj: Any => fail(s"Expected Distributed Object Types : [IMap, MultiMap and ReplicatedMap] but ${distObj.getName} found!")
       }
     }
 

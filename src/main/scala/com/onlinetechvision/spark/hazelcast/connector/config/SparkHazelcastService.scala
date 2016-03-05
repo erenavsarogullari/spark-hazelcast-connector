@@ -22,7 +22,7 @@ import com.hazelcast.config.ClasspathXmlConfig
 import com.hazelcast.core._
 import com.onlinetechvision.spark.hazelcast.connector.DistributedObjectType
 import DistributedObjectType._
-import org.apache.commons.lang3.Validate
+import com.onlinetechvision.spark.hazelcast.connector.validator.SparkHazelcastValidator
 
 /**
  * Created by eren.avsarogullari on 2/8/16.
@@ -30,7 +30,7 @@ import org.apache.commons.lang3.Validate
 object SparkHazelcastService {
 
   def getSparkHazelcastData(properties: Properties): SparkHazelcastData = {
-    validateProperties(properties)
+    SparkHazelcastValidator.validateProperties(properties)
 
     val hazelcastXMLConfigFileName = properties.getProperty(SparkHazelcastConfig.HazelcastXMLConfigFileName)
     val hazelcastDistributedObjectName = properties.getProperty(SparkHazelcastConfig.HazelcastDistributedObjectName)
@@ -39,12 +39,6 @@ object SparkHazelcastService {
     val hazelcastInstance = Hazelcast.getOrCreateHazelcastInstance(new ClasspathXmlConfig(hazelcastXMLConfigFileName))
     val distributedObject = getDistributedObject(hazelcastInstance, hazelcastDistributedObjectType, hazelcastDistributedObjectName)
     new SparkHazelcastData(distributedObject)
-  }
-
-  private def validateProperties(properties: Properties): Unit = {
-    Validate.notBlank(properties.getProperty(SparkHazelcastConfig.HazelcastXMLConfigFileName))
-    Validate.notBlank(properties.getProperty(SparkHazelcastConfig.HazelcastDistributedObjectName))
-    Validate.notNull(properties.get(SparkHazelcastConfig.HazelcastDistributedObjectType))
   }
 
   private def getDistributedObject(hazelcastInstance: HazelcastInstance, hazelcastDistributedObjectType: DistributedObjectType, hazelcastDistributedObjectName: String): DistributedObject = {
@@ -57,7 +51,7 @@ object SparkHazelcastService {
       case DistributedObjectType.IQueue => hazelcastInstance.getQueue(hazelcastDistributedObjectName)
       case DistributedObjectType.ITopic => hazelcastInstance.getTopic(hazelcastDistributedObjectName)
       case DistributedObjectType.ReliableTopic => hazelcastInstance.getReliableTopic(hazelcastDistributedObjectName)
-      case distObj: Any => throw new IllegalStateException(s"Expected Distributed Object Types : [IMap, MultiMap, ReplicatedMap, IList, ISet and IQueue, ITopic and ReliableTopic] but $distObj found!")
+      case distObj: Any => throw new IllegalStateException(s"Expected Distributed Object Types : [IMap, MultiMap, ReplicatedMap, IList, ISet and IQueue, ITopic and ReliableTopic] but $hazelcastDistributedObjectName found!")
     }
   }
 

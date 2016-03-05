@@ -84,7 +84,7 @@ class DStreamImplicitsItemSuite extends SparkHazelcastSuite {
       case hzQueue: IQueue[T @unchecked] => {
         hzQueue.addItemListener(listener, true)
       }
-      case distObj: Any => fail(s"Expected Distributed Object Types : [IList, ISet, IQueue] but $distObj found!")
+      case distObj: Any => fail(s"Expected Distributed Object Types : [IList, ISet, IQueue] but ${distObj.getName} found!")
     }
   }
 

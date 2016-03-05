@@ -19,6 +19,7 @@ package com.onlinetechvision.spark.hazelcast.connector.rdd
 import java.util.Properties
 
 import com.hazelcast.core._
+import com.onlinetechvision.spark.hazelcast.connector.validator.SparkHazelcastValidator
 import org.apache.spark.annotation.DeveloperApi
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{Partition, SparkContext, TaskContext}
@@ -34,8 +35,11 @@ class HazelcastItemRDD[I: ClassTag](@transient val sc: SparkContext,
   override def compute(split: Partition, context: TaskContext): Iterator[I] = {
     val hazelcastTuple = getHazelcastTuple(sparkHazelcastData.getDistributedObject())
     val hazelcastIterator = hazelcastTuple._1
-    val entryCount = hazelcastTuple._2
-    val indexTuple = getIndexTuple(split.index, entryCount, partitions)
+    val itemCount = hazelcastTuple._2
+
+    SparkHazelcastValidator.validatePartitionCount(partitions, itemCount)
+
+    val indexTuple = getIndexTuple(split.index, itemCount, partitions)
     hazelcastIterator.slice(indexTuple._1, indexTuple._2)
   }
 
@@ -46,7 +50,7 @@ class HazelcastItemRDD[I: ClassTag](@transient val sc: SparkContext,
       case hzList: IList[I] => (new HazelcastIterator[I](hzList.iterator()), hzList.size())
       case hzSet: ISet[I] => (new HazelcastIterator[I](hzSet.iterator()), hzSet.size())
       case hzQueue: IQueue[I] => (new HazelcastIterator[I](hzQueue.iterator()), hzQueue.size())
-      case distObj: Any => throw new IllegalStateException(s"Expected Distributed Object Types : [IList, ISet and IQueue] but $distObj found!")
+      case distObj: Any => throw new IllegalStateException(s"Expected Distributed Object Types : [IList, ISet and IQueue] but ${distObj.getName} found!")
     }
   }
 

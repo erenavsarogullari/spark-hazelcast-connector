@@ -20,6 +20,7 @@ import java.util.Map.Entry
 import java.util.Properties
 
 import com.hazelcast.core.{MultiMap, _}
+import com.onlinetechvision.spark.hazelcast.connector.validator.SparkHazelcastValidator
 import org.apache.spark.annotation.DeveloperApi
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{Partition, SparkContext, TaskContext}
@@ -29,11 +30,16 @@ class HazelcastEntryRDD[K, V](@transient private val sc: SparkContext,
 
   override val props: Properties = properties
 
+
+
   @DeveloperApi
   override def compute(split: Partition, context: TaskContext): Iterator[Entry[K, V]] = {
     val hazelcastTuple = getHazelcastTuple(sparkHazelcastData.getDistributedObject())
     val hazelcastIterator = hazelcastTuple._1
     val entryCount = hazelcastTuple._2
+
+    SparkHazelcastValidator.validatePartitionCount(partitions, entryCount)
+
     val indexTuple = getIndexTuple(split.index, entryCount, partitions)
     println(s"index : ${split.index}, from : ${indexTuple._1}, to : ${indexTuple._2}")
     hazelcastIterator.slice(indexTuple._1, indexTuple._2)
@@ -46,7 +52,7 @@ class HazelcastEntryRDD[K, V](@transient private val sc: SparkContext,
       case hzMap: IMap[K, V] => (new HazelcastIterator[Entry[K, V]](hzMap.entrySet().iterator()), hzMap.entrySet().size())
       case hzMultiMap: MultiMap[K, V] => (new HazelcastIterator[Entry[K, V]](hzMultiMap.entrySet().iterator()), hzMultiMap.entrySet().size())
       case hzReplicatedMap: ReplicatedMap[K, V] => (new HazelcastIterator[Entry[K, V]](hzReplicatedMap.entrySet().iterator()), hzReplicatedMap.entrySet().size())
-      case distObj: Any => throw new IllegalStateException(s"Expected Distributed Object Types : [IMap, MultiMap and ReplicatedMap] but $distObj found!")
+      case distObj: Any => throw new IllegalStateException(s"Expected Distributed Object Types : [IMap, MultiMap and ReplicatedMap] but ${distObj.getName} found!")
     }
   }
 
