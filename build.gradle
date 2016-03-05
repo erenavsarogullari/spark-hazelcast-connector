@@ -1,20 +1,14 @@
 group 'spark-hazelcast-connector'
-version '1.0-SNAPSHOT'
+version '0.1.0-SNAPSHOT'
 
 apply plugin: 'scoverage'
 apply plugin: 'java'
 apply plugin: 'scala'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
+apply plugin: 'net.researchgate.release'
 
 sourceCompatibility = 1.7
-
-ext {
-    scalaVersion = '2.11'
-    sparkVersion = '1.6.0'
-    hazelcastVersion = '3.6'
-    scoverageVersion = '1.1.1'
-}
 
 buildscript {
     repositories {
@@ -22,7 +16,15 @@ buildscript {
     }
     dependencies {
         classpath 'org.scoverage:gradle-scoverage:1.1.0'
+        classpath 'net.researchgate:gradle-release:2.3.4'
     }
+}
+
+ext {
+    scalaVersion = '2.11'
+    sparkVersion = '1.6.0'
+    hazelcastVersion = '3.6'
+    scoverageVersion = '1.1.1'
 }
 
 repositories {
