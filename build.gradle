@@ -1,14 +1,9 @@
-group 'spark-hazelcast-connector'
-version '0.1.0-SNAPSHOT'
-
 apply plugin: 'scoverage'
 apply plugin: 'java'
 apply plugin: 'scala'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
 apply plugin: 'net.researchgate.release'
-
-sourceCompatibility = 1.7
 
 buildscript {
     repositories {
@@ -27,12 +22,15 @@ ext {
     scoverageVersion = '1.1.1'
 }
 
+group 'spark-hazelcast-connector'
+version "1.0.0-s_$scalaVersion"
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compile 'org.scala-lang:scala-library'
+    compile "org.scala-lang:scala-library:$scalaVersion"
 
     compile "org.apache.spark:spark-core_$scalaVersion:$sparkVersion"
     compile "org.apache.spark:spark-sql_$scalaVersion:$sparkVersion"

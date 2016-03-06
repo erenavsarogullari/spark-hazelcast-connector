@@ -8,7 +8,7 @@ scala:
    - 2.11.7
 
 script:
-  - ./gradlew reportScoverage
+  - ./gradlew reportScoverage -PscalaVersion=$TRAVIS_SCALA_VERSION
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
