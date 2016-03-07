@@ -1,0 +1,34 @@
+description = 'Spark Hazelcast Connector Examples'
+
+apply plugin: 'java'
+apply plugin: 'scala'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'http://dl.bintray.com/spark-packages/maven/' }
+}
+
+ext {
+    scalaVersion = '2.11'
+    sparkVersion = '1.6.0'
+    hazelcastVersion = '3.6'
+}
+
+dependencies {
+    compile "org.scala-lang:scala-library:$scalaVersion"
+
+    compile "org.apache.spark:spark-core_$scalaVersion:$sparkVersion"
+    compile "org.apache.spark:spark-sql_$scalaVersion:$sparkVersion"
+    compile "org.apache.spark:spark-streaming_$scalaVersion:$sparkVersion"
+    compile "com.hazelcast:hazelcast:$hazelcastVersion"
+
+    compile 'erenavsarogullari:spark-hazelcast-connector:1.0.0-s_2.11'
+}

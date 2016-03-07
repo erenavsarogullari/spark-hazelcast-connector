@@ -1,4 +1,4 @@
-spark-hazelcast-connector.iml
+*.iml
 .idea
 .gradle
 build

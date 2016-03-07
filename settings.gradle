@@ -1,2 +1,3 @@
 rootProject.name = 'spark-hazelcast-connector'
 
+include 'examples'
