@@ -41,7 +41,7 @@ class HazelcastEntryRDD[K, V](@transient private val sc: SparkContext,
     SparkHazelcastValidator.validatePartitionCount(partitions, entryCount)
 
     val indexTuple = getIndexTuple(split.index, entryCount, partitions)
-    println(s"index : ${split.index}, from : ${indexTuple._1}, to : ${indexTuple._2}")
+//    println(s"index : ${split.index}, from : ${indexTuple._1}, to : ${indexTuple._2}")
     hazelcastIterator.slice(indexTuple._1, indexTuple._2)
   }
 
