@@ -30,8 +30,6 @@ class HazelcastEntryRDD[K, V](@transient private val sc: SparkContext,
 
   override val props: Properties = properties
 
-
-
   @DeveloperApi
   override def compute(split: Partition, context: TaskContext): Iterator[Entry[K, V]] = {
     val hazelcastTuple = getHazelcastTuple(sparkHazelcastData.getDistributedObject())
@@ -41,7 +39,6 @@ class HazelcastEntryRDD[K, V](@transient private val sc: SparkContext,
     SparkHazelcastValidator.validatePartitionCount(partitions, entryCount)
 
     val indexTuple = getIndexTuple(split.index, entryCount, partitions)
-//    println(s"index : ${split.index}, from : ${indexTuple._1}, to : ${indexTuple._2}")
     hazelcastIterator.slice(indexTuple._1, indexTuple._2)
   }
 

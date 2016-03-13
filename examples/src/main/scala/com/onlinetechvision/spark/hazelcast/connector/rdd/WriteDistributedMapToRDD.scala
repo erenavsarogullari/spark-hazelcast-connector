@@ -53,7 +53,7 @@ object WriteDistributedMapToRDD {
     println(s"userRDD has got ${userRDD.count} elements.")
 
     // Prints elements of 'userRDD'
-    userRDD.foreach(println)
+    userRDD.take(100).foreach(println)
 
   }
 
